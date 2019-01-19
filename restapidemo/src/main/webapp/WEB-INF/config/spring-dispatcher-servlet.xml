@@ -21,33 +21,33 @@
 	</bean>
 
 	<!-- Persistence Configuration Start -->
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/restapi?useSSL=false" />
 		<property name="username" value="root" />
 		<property name="password" value="password.1" />
 	</bean>
-	
+
 	<tx:annotation-driven transaction-manager="transactionManager" />
-	 
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
-    </bean>
-    
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="typeAliasesPackage" value="com.nana.restapi.demo.domain"/>
-        <property name="mapperLocations" value="classpath*:com/nana/restapi/demo/dao/mapper/*.xml" />
-    </bean>
-    
-    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-        <constructor-arg index="0" ref="sqlSessionFactory" />
-    </bean>
-    
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.nana.restapi.demo.dao.mapper" />
-    </bean>
-    <!-- Persistence Configuration End -->
-    
-    
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="typeAliasesPackage" value="com.nana.restapi.demo.domain" />
+		<property name="mapperLocations" value="classpath*:com/nana/restapi/demo/dao/mapper/*.xml" />
+	</bean>
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.nana.restapi.demo.dao.mapper" />
+	</bean>
+	<!-- Persistence Configuration End -->
+
+
 </beans>

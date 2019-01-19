@@ -27,9 +27,6 @@ public class ContactController {
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public APIResult contactList() {
 		
-		System.out.println("-----------------------------------");
-		System.out.println("CONTACT");
-
 		APIResult apiResult = new APIResult();
 
 		try {
