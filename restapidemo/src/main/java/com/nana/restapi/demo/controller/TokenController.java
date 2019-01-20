@@ -25,14 +25,10 @@ public class TokenController {
 	@RequestMapping(value = "/token", method = RequestMethod.POST)
 	public APIResult getToken(@RequestBody TokenRequest request) {
 		
-		System.out.println("---------------------------------------------------------------");
-		System.out.println("--------------------REQUEST TOKEN------------------------------");
-
 		APIResult apiResult = new APIResult();
 
 		try {
 			String token = service.generate(request.getUsername(), request.getPassword());
-			System.out.println(token);
 
 			if (token != null) {
 				apiResult.setResult(new TokenResult(token));

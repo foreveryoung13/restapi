@@ -27,63 +27,45 @@ public class JWTHeaderInterceptor extends HandlerInterceptorAdapter {
 	protected TokenService tokenService;
 
 	public void setExclude(String exclude) {
-		System.out.println("excludeList " + exclude);
 		excludeList = exclude.split(",");
-		System.out.println();
 	}
 
 	public void setExcludePost(String exclude) {
-		System.out.println();
 		System.out.println("excludePOSTList " + exclude);
-		excludePOSTList = exclude.split(",");
-		System.out.println();
 	}
 
 	public void setExcludeGet(String exclude) {
-		System.out.println();
-		System.out.println("excludeGETList " + exclude);
 		excludeGETList = exclude.split(",");
-		System.out.println();
 	}
 
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
 		logger.debug("Accessing : " + request.getPathInfo() + ", auth : " + request.getHeader("Authorization"));
-		System.out.println(request.getPathInfo() + ", auth : " + request.getHeader("Authorization"));
-		
-		
+
 		boolean result = false;
 
 		for (String exclude : excludeList) {
-			System.out.println("exclude wkwkw " + exclude);
 			if (request.getPathInfo().matches(exclude)) {
-
 				result = true;
-
 				logger.debug("Exluded from JWThandler : " + exclude);
 				break;
 			}
 		}
 
 		if (!result) {
-
 			if ("POST".equals(request.getMethod().toUpperCase())) {
-
 				for (String exclude : excludePOSTList) {
-
 					if (request.getPathInfo().matches(exclude)) {
-
+						
 						result = true;
-
+						
 						logger.debug("Exluded from JWThandler POST : " + exclude);
 						break;
 					}
 				}
 			} else if ("GET".equals(request.getMethod().toUpperCase())) {
-
 				for (String exclude : excludeGETList) {
-
 					if (request.getPathInfo().matches(exclude)) {
 
 						result = true;
@@ -97,17 +79,13 @@ public class JWTHeaderInterceptor extends HandlerInterceptorAdapter {
 
 		if (!result) {
 
-			String auth = request.getHeader("Authorization");
+			String auth = request.getHeader("Authorization"); /* get bearer token for header ATHORIZATION */
 			ErrorCode errCode = ErrorCode.COMMON_ERROR;
-
-			int code = 1;
-
+			
 			if (auth != null) {
-
 				String token = auth.substring(7);
 
 				try {
-
 					result = tokenService.validate(token);
 
 					if (!result)
@@ -115,10 +93,8 @@ public class JWTHeaderInterceptor extends HandlerInterceptorAdapter {
 					else
 						logger.debug("Auth valid");
 				} catch (ExpiredJwtException e) {
-
 					errCode = ErrorCode.AUTH_TOKEN_ERROR;
 				} catch (Exception e) {
-
 					errCode = ErrorCode.AUTH_TOKEN_ERROR;
 				}
 			} else
