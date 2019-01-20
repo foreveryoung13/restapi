@@ -9,6 +9,7 @@
 		<result column="LAST_NAME" property="lastName" />
 		<result column="PHONE" property="phone" />
 		<result column="CUSTOMER_ID" property="customerId" />
+		<result column="CREATED_DATE" property="createdDate" />
 	</resultMap>
 
 	<select id="getContactList" resultMap="contactMap">

@@ -1,5 +1,9 @@
 package com.nana.restapi.demo.domain;
 
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  *
  * @author nana
@@ -13,6 +17,9 @@ public class Contact {
 	private String lastName;
 	private String phone;
 	private Integer customerId;
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
+	private Date createdDate;
 
 	public Integer getContactId() {
 		return contactId;
@@ -52,6 +59,14 @@ public class Contact {
 
 	public void setCustomerId(Integer customerId) {
 		this.customerId = customerId;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 }

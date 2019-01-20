@@ -2,6 +2,8 @@ package com.nana.restapi.demo.util;
 
 public enum ErrorCode {
 
+	AUTH_TOKEN_EMPTY    (22222, "TOKEN IS EMPTY"),
+	AUTH_TOKEN_ERROR    (44444, "AUTHENTICATION ERROR"),
     COMMON_ERROR        (99999, "GENERAL ERROR");
     
     protected int errorCode;
